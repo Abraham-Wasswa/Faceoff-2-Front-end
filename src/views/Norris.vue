@@ -34,7 +34,7 @@
         <hr>
         <div class="row">
           <p id="Joke">
-             {{Jokes}}
+             {{Jokes.value}}
           </p>
           </div>
           </div>
@@ -47,27 +47,28 @@
 
 <script>
 import axios from 'axios'
+
 export default {
-  data: () => ({
-    msg: 'NORRIS JOKES',
-    Jokes: '',
-    options: ["animal", "career", "celebrity", "dev", "explicit", "fashion", "food", "history", "money", "movie", "music", "political", "religion", "science", "sport", "travel"]
-  }),
-  methods: {
-    submit: function () {
-      Jokes = "/api/Jokes"
+  data () {
+    return {
+      msg: 'NORRIS JOKES',
+      Jokes: [ ],
+      options: ["animal", "career", "celebrity", "dev", "explicit", "fashion", "food", "history", "money", "movie", "music", " political ", "religion", "science", "sport", "travel"]
     }
   },
-  mounted () {
-    axios.get(Jokes, { responseType: "json" })
-      .then(
-        response => { this.Jokes = response.data }
-      )
-      .catch(error => {
-        if (error.response.status === 400){
-          this.Jokes = JSON.parse(error.response.data)
-        }
-      })
+  async created () {
+    try {
+      const res = await axios.get('/api/Jokes', { responseType: "json" })
+
+      this.Jokes = res.data
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  methods: {
+    async submit () {
+      const res = await axios.get('/api/Jokes', { responseType: "json" })
+    }
   }
 }
 </script>
