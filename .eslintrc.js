@@ -14,7 +14,8 @@ module.exports = {
 
     "space-before-blocks": "off",
     "quotes": "off",
-    "no-extra-semi": "off"
+    "no-extra-semi": "off",
+    'no-console': 'off',
   },
   parserOptions: {
     parser: '@typescript-eslint/parser'
